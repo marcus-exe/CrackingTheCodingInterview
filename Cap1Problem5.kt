@@ -1,53 +1,70 @@
+import java.lang.StringBuilder
+import kotlin.math.abs
+
 //One Away Problem
 
-//Thinking Process
-/*
-*  1) Use something like linux dif in Kotlin
-*   Tried and didn´t work quite well, mostly because it counts the structure more o like a set,
-*   so it doesn´t take repeated new elements in consideration
-*
-*  2) Use a simHash, but I don´t know if they keep things this similar in accountability
-*   Just saw an exemple code of how to implement a SimHash in Kotlin and notice it probably was not
-*   the best choice
-*
-*  3) I´m going to create a set for the new letters and use length for repeated ones
-*   It solved the biggest majority of problems in a good time, but not all of them
-*
-*  4) Probably going to need a Map of the letters, this way a can count length and letter more
-*   accurately
-*
-*
-* */
+fun oneAwayProblem(string1: String, string2: String) : String{
+    //length check
+    if (abs(string1.length - string2.length) > 1)  return "Not One away"
+    //equals check
+    if (string1 == string2) return "Equal strings"
 
 
-fun oneAwayDiffBroken(string1: String, string2: String){
-
-    //verifying using size
-    val differenceSize : Int
-    if (string1.length > string2.length){
-        differenceSize = string1.length - string2.length
+    //bigger string assign (if exists)
+    val biggerString = if (string1.length == string2.length || string1.length > string2.length) {
+        string1
     } else {
-        differenceSize = string2.length - string1.length
+        string2
     }
 
-    //verifying using set
-    val setString1 = string1.toHashSet()
-    val setString2 = string2.toHashSet()
-    val differenceSet = setString1 - setString2
-
-    return if (differenceSize > 1 && differenceSet.isNotEmpty()){
-        println("Not One Away")
-    } else if (differenceSet.size > 1 && differenceSize > 0) {
-        println("Not One Away")
-    } else {
-        println("One Away")
+    val smallerString = if (string1.length == string2.length || string1.length> string2.length) {
+        "$string2 "
+    }  else  {
+        "$string1 "
     }
 
+    //variables for change
+    var changes = 0
+    var index1 = 0
+    var index2 = 0
+
+
+    while(index1 < biggerString.length) {
+        //println("var1 = ${biggerString[index1]} || var2 = ${smallerString[index2]}")
+
+        //catch difference
+        if (biggerString[index1] != smallerString[index2]) {
+            changes++
+
+            //conditional for avoiding array out of bound
+            if (index1 < biggerString.length - 1){
+
+                //insertion(on bigger string) or deletion (on smaller string)
+                if (biggerString[index1 + 1] == smallerString[index2]) {
+                    println("Insertion Or Deletion Found")
+                    //need to correct the index, if not the code will alert other differences
+                    index1++
+
+                } else if (biggerString[index1 + 1] == smallerString[index2 + 1]) {
+                    println("Substitution Found")
+                    //he returns back to char equivalence after the difference was found naturally
+                }
+            }
+        }
+        //check if there is still room for change
+        if (changes > 1) return "Not One Away"
+        index1++
+        index2++
+    }
+    return "One Away"
 }
 
 
-fun main(){
-    val string1 = "baseef"
-    val string2 = "baasee"
-    oneAwayDiffBroken(string1, string2)
+fun main() {
+
+    val string1 = "caecdd"
+    val string2 = "caecdd"
+
+    println(oneAwayProblem(string1, string2))
+
 }
