@@ -1,8 +1,8 @@
 fun main(){
     //initial matrix
     val matrix = listOf(
-        listOf(1, 1, 0),
-        listOf(2, 2, 0),
+        listOf(1, 1, 1),
+        listOf(2, 0, 2),
         listOf(3, 3, 3)
     )
     matrix.forEach {
@@ -26,30 +26,39 @@ fun zeroMatrix(matrix: List<List<Int>>){
         //iterate through items
         rows.forEach {num ->
             if (num == 0){
-                //Add Columns and Rows to the Map
+                //Add Rows and Cols to the Map
                 val newMap = mapOf(matrix.indexOf(rows) to rows.indexOf(num))
                 map.putAll(newMap)
             }
         }
     }
-    map.forEach { key, value ->
-        println("Row ${key} || Column ${value}")
+
+    map.forEach { (key, value) ->
+        println("Row $key || Column $value")
     }
 
 
     /***TAKEN ALL ZEROS, CREATE NEW MATRIX***/
-    matrix.forEach{rows ->
-        rows.forEach{num ->
+    matrix.forEachIndexed RowScope@ {rowIndex, row ->
+        val newRow = mutableListOf<Int>()
+        row.forEachIndexed { colIndex, num ->
             //row checking
-            if (map.containsValue(num)) {
+            if (map.containsKey(rowIndex)) {
                 //add null row
                 newMatrix.add(List(numCols) { 0 })
+                return@RowScope
             } else {
-                
+                if (map.containsValue(colIndex)) {
+                    newRow.add(0)
+                } else {
+                    //newRow.add(row(colIndex))
+                    newRow.add(num)
+                }
             }
         }
+        newMatrix.add(newRow)
     }
-
-
-
+    newMatrix.forEach {
+        println(it)
+    }
 }
