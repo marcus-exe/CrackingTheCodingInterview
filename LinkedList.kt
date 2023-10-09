@@ -41,6 +41,24 @@ class LinkedList<T> {
             }
         }
     }
+
+    // Cap 2 - Problem 1 : Using Set
+    fun removeDuplicates() {
+        val uniqueValues = HashSet<T>()
+        var current = head
+        var previous: Node<T>? = null
+
+        while (current != null) {
+            if (uniqueValues.contains(current.data)) {
+                // Remove the current node (duplicate)
+                previous?.next = current.next
+            } else {
+                uniqueValues.add(current.data)
+                previous = current
+            }
+            current = current.next
+        }
+    }
     
 
 
