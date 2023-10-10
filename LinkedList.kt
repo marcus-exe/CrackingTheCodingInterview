@@ -59,7 +59,24 @@ class LinkedList<T> {
             current = current.next
         }
     }
-    
+
+    // Cap 2 - Problem 2 : Return Kth to Last
+    fun returnKthToLast(kth: Int): T? {
+        if (head == null || kth < 1) return null
+        var slow = head
+        var fast = head
+        repeat(kth){
+            fast = fast?.next
+            if (fast == null) return null //if kth > length
+        }
+        while (fast?.next != null) {
+            slow = slow?.next
+            fast = fast?.next
+        }
+        return slow?.data
+    }
+
+
 
 
 }
