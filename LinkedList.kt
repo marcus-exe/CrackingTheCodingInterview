@@ -1,6 +1,6 @@
 //this class is an implementation of a linked list from scratch
 
-data class Node<T>(val data: T, var next: Node<T>? = null)
+data class Node<T>(var data: T, var next: Node<T>? = null)
 
 class LinkedList<T> {
     //head is the first item from a list
@@ -76,7 +76,27 @@ class LinkedList<T> {
         return slow?.data
     }
 
+    // Cap 2 - Problem 3: Delete Middle Node
+    fun removeNode(data: T) {
+        var current = head
+        var prev: Node<T>? = null
 
+        // Traverse the list to find the node with the specified value
+        while (current != null && current.data != data) {
+            prev = current
+            current = current.next
+        }
+
+        // If the node with the specified value is found, remove it
+        if (current != null) {
+            // If the node to be removed is the head node
+            if (prev == null) {
+                head = current.next
+            } else {
+                prev.next = current.next
+            }
+        }
+    }
 
 
 }
