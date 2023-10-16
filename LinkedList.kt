@@ -1,8 +1,8 @@
 //this class is an implementation of a linked list from scratch
 
-data class Node<T>(var data: T, var next: Node<T>? = null)
+data class Node<T : Comparable<T>>(var data: T, var next: Node<T>? = null)
 
-class LinkedList<T> {
+class LinkedList<T : Comparable<T>> {
     //head is the first item from a list
     private var head: Node<T>? = null
 
@@ -97,6 +97,49 @@ class LinkedList<T> {
             }
         }
     }
+
+    // Cap 2 -  Problem 4: Partition
+    fun partition(pivot: T) {
+        var current = head
+        var smallerHead: Node<T>? = null
+        var smallerTail: Node<T>? = null
+        var greaterHead: Node<T>? = null
+        var greaterTail: Node<T>? = null
+
+        while (current != null) {
+            val next = current.next
+            current.next = null
+
+            if (current.data < pivot) {
+                if (smallerHead == null) {
+                    smallerHead = current
+                    smallerTail = smallerHead
+                } else {
+                    smallerTail?.next = current
+                    smallerTail = current
+                }
+            } else {
+                if (greaterHead == null) {
+                    greaterHead = current
+                    greaterTail = greaterHead
+                } else {
+                    greaterTail?.next = current
+                    greaterTail = current
+                }
+            }
+
+            current = next
+        }
+
+        if (smallerHead == null) {
+            head = greaterHead
+        } else {
+            head = smallerHead
+            smallerTail?.next = greaterHead
+        }
+    }
+
+
 
 
 }
