@@ -76,7 +76,7 @@ class LinkedList<T : Comparable<T>> {
         return slow?.data
     }
 
-    // Cap 2 - Problem 3: Delete Middle Node
+    // Cap 2 - Problem 3 : Delete Middle Node
     fun removeNode(data: T) {
         var current = head
         var prev: Node<T>? = null
@@ -98,7 +98,7 @@ class LinkedList<T : Comparable<T>> {
         }
     }
 
-    // Cap 2 -  Problem 4: Partition
+    // Cap 2 -  Problem 4 : Partition
     fun partition(pivot: T) {
         var current = head
         var smallerHead: Node<T>? = null
@@ -138,7 +138,6 @@ class LinkedList<T : Comparable<T>> {
             smallerTail?.next = greaterHead
         }
     }
-
 
 
 

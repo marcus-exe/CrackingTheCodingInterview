@@ -15,5 +15,5 @@ fun main(){
     linkedList.printList()
     linkedList.partition(5)
     linkedList.printList()
-    
+
 }
