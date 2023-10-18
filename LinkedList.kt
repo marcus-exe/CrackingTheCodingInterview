@@ -139,6 +139,26 @@ class LinkedList<T : Comparable<T>> {
         }
     }
 
+    //Cap 2 - Problem 6 : Is palindrome?
+    fun isPalindrome(): Boolean{
+        val values = mutableListOf<T>()
+        var current = head
+        while (current != null){
+            values.add(current.data)
+            current = current.next
+        }
+        for (i in 0 until values.size/2) {
+            if (values[i] != values[values.size - 1 - i]) {
+                return false
+            }
+        }
+        return true
+
+    }
+
+
+
+
 
 
 }
